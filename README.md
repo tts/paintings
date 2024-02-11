@@ -1,1 +1,1 @@
-Widths of the paintings by Pekka Halonen at finna.fi
+Widths of the paintings by Pekka Halonen at [Finna](https://finna.fi) [as a table](https://tuijasonkkila.fi/halonen.html)
