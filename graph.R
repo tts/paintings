@@ -1,4 +1,3 @@
-library(shiny)
 library(tidyverse)
 library(ggiraph)
 library(ggtext)
@@ -62,7 +61,7 @@ interactive <- girafe(
   options = list(
     opts_tooltip(css = tooltip_css, 
                  opacity = 1)),
-  width_svg = 9, height_svg = 5.25
+  width_svg = 7, height_svg = 4.25
 )
 
 #preview
