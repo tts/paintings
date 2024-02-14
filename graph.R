@@ -46,7 +46,7 @@ gg <- ggplot() +
        subtitle="<span style='color:#7ac5cd;'>Pekka Halosen</span>, 
                  <span style='color:#bdb76b;'>Helene Schjerfbeckin</span> ja 
                  <span style='color:#8B0000;'>Elin Danielson-Gambogin</span> maalausten kokoja (cm)",
-       title="Korkeus x leveys", fill="") +
+       title="Korkeus x leveys") +
   theme_minimal() +
   theme(axis.title.x = element_blank(),
         axis.title.y = element_blank(),
