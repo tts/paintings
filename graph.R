@@ -6,45 +6,52 @@ halonen <- readRDS("halonen.RDS")
 schjerfbeck <- readRDS("schjerfbeck.RDS")
 danielsongambogi <- readRDS("danielsongambogi.RDS")
 
+halonen <- halonen %>% 
+  mutate(ratio = w / h)
+
+maxw <- halonen[which.max(halonen$ratio), "w"]
+maxh <- halonen[which.max(halonen$ratio), "h"]
+
 gg <- ggplot() + 
   geom_point(data = halonen, aes(x = w, y = h), colour = "cadetblue3", shape = 0) +
   geom_point(data = schjerfbeck, aes(x = w, y = h), colour = "darkkhaki", fill = "darkkhaki", shape = 0) +
   geom_point(data = danielsongambogi, aes(x = w, y = h), colour = "darkred", fill = "darkred", shape = 0) +
+  geom_segment_interactive(aes(x = 0, y = 0, xend = maxw, yend = maxh), linetype = "dashed", color = "azure3") +
   geom_segment_interactive(aes(x = 0, y = h, 
                                xend = w, yend = h, 
                                tooltip = paste("Halonen:", title, year, paste0(h, " x ", w), sep = "\n"), 
                                data_id = title), colour = "cadetblue3", size = 1,
-                           data = halonen) +
+                           data = halonen, alpha = 0.6) +
   geom_segment_interactive(aes(x = w, y = 0, 
                                xend = w, yend = h, 
                                tooltip = paste("Halonen:", title, year, paste0(h, " x ", w), sep = "\n"), 
                                data_id = title), colour = "cadetblue3", size = 1,
-                           data = halonen) +
-  geom_segment_interactive(aes(x = 0, y = h, 
-                               xend = w, yend = h, 
-                               tooltip = paste("Schjerfbeck:", title, year, paste0(h, " x ", w), sep = "\n"), 
+                           data = halonen, alpha = 0.6) +
+  geom_segment_interactive(aes(x = 0, y = h,
+                               xend = w, yend = h,
+                               tooltip = paste("Schjerfbeck:", title, year, paste0(h, " x ", w), sep = "\n"),
                                data_id = title), colour = "darkkhaki", size = 1,
-                           data = schjerfbeck) +
-  geom_segment_interactive(aes(x = w, y = 0, 
-                               xend = w, yend = h, 
-                               tooltip = paste("Schjerfbeck:", title, year, paste0(h, " x ", w), sep = "\n"), 
+                           data = schjerfbeck, alpha = 0.6) +
+  geom_segment_interactive(aes(x = w, y = 0,
+                               xend = w, yend = h,
+                               tooltip = paste("Schjerfbeck:", title, year, paste0(h, " x ", w), sep = "\n"),
                                data_id = title), colour = "darkkhaki", size = 1,
-                           data = schjerfbeck) +
-  geom_segment_interactive(aes(x = 0, y = h, 
-                               xend = w, yend = h, 
-                               tooltip = paste("Danielson-Gambogi:", title, year, paste0(h, " x ", w), sep = "\n"), 
+                           data = schjerfbeck, alpha = 0.6) +
+  geom_segment_interactive(aes(x = 0, y = h,
+                               xend = w, yend = h,
+                               tooltip = paste("Danielson-Gambogi:", title, year, paste0(h, " x ", w), sep = "\n"),
                                data_id = title), colour = "darkred", size = 1,
-                           data = danielsongambogi) +
-  geom_segment_interactive(aes(x = w, y = 0, 
-                               xend = w, yend = h, 
-                               tooltip = paste("Danielson-Gambogi:", title, year, paste0(h, " x ", w), sep = "\n"), 
+                           data = danielsongambogi, alpha = 0.6) +
+  geom_segment_interactive(aes(x = w, y = 0,
+                               xend = w, yend = h,
+                               tooltip = paste("Danielson-Gambogi:", title, year, paste0(h, " x ", w), sep = "\n"),
                                data_id = title), colour = "darkred", size = 1,
-                           data = danielsongambogi) +
+                           data = danielsongambogi, alpha = 0.6) +
   geom_jitter_interactive(width = 0.45, height = 0.45) +
   labs(caption="Data: Wikipedia | Kaavio @ttso",
        subtitle="<span style='color:#7ac5cd;'>Pekka Halosen</span>, 
                  <span style='color:#bdb76b;'>Helene Schjerfbeckin</span> ja 
-                 <span style='color:#8B0000;'>Elin Danielson-Gambogin</span> maalausten kokoja (cm)",
+                 <span style='color:#8B0000;'>Elin Danielson-Gambogin</span><br/> maalausten kokoja (cm)",
        title="Korkeus x leveys") +
   theme_minimal() +
   theme(axis.title.x = element_blank(),
@@ -60,8 +67,7 @@ interactive <- girafe(
   ggobj = gg,
   options = list(
     opts_tooltip(css = tooltip_css, 
-                 opacity = 1)),
-  width_svg = 7, height_svg = 4.25
+                 opacity = 1))
 )
 
 #preview
