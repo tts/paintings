@@ -14,7 +14,7 @@ danielsongambogi <- readRDS("danielsongambogi.RDS") %>%
 
 # The result graph looks untidier than the one produced by graph.R
 # where line segments are rendered by artist. Perhaps I should actually group the data.
-data <- rbind(halonen, schjerfbeck, )
+data <- rbind(halonen, schjerfbeck, danielsongambogi)
 
 data <- data %>% 
   mutate(ratio = w / h) %>% 
