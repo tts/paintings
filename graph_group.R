@@ -13,11 +13,12 @@ danielsongambogi <- readRDS("danielsongambogi.RDS") %>%
          col = "d")
 
 # When rendered, the result graph looks untidier than the one produced by graph.R
-# where line segments are added by artist
-data <- rbind(halonen, schjerfbeck, danielsongambogi)
+# where line segments are added by artist. Perhaps I should actually group the data.
+data <- rbind(halonen, danielsongambogi, schjerfbeck)
 
 data <- data %>% 
   mutate(ratio = w / h) %>% 
+        # artist = factor(artist, levels = c("Halonen", "Schjerfbeck", "Danielson-Gambogi"))) %>% 
   rowid_to_column("id")
 
 halonen_max_ratio <- data %>% 
@@ -41,9 +42,9 @@ gg <- ggplot(data) +
         tooltip = paste(artist, title, year, paste0(h, " x ", w), sep = "\n"),
         data_id = id),
     linewidth = 1, alpha = 0.6) +
-  geom_segment_interactive(
-    aes(x = 0, y = 0, xend = maxw, yend = maxh),
-    linetype = "dashed", color = h) +
+  # geom_segment_interactive(
+  #   aes(x = 0, y = 0, xend = maxw, yend = maxh),
+  #   linetype = "dashed", color = "cadetblue3") +
   scale_color_manual(values = c("h" = "cadetblue3", "s" = "darkkhaki", "d" = "darkred")) +
   labs(caption="Data: Wikipedia | Kaavio @ttso",
        subtitle="<span style='color:#7ac5cd;'>Pekka Halosen</span>, 
