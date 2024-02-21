@@ -53,7 +53,10 @@ clean <- function(d) {
   return(cleaned)
 }
 
+#-----------------------------
 # Vector of selected artists
+#-----------------------------
+
 who <- c("Pekka Halonen",
          "Helene Schjerfbeck",
          "Elin Danielson-Gambogi",
@@ -75,7 +78,7 @@ works_list <- map2(.x = whourl,
                    .f = ~{
                      rep <- seq(1, .y, 1)
                      map2(.x, rep, get_paintings)
-                   }) 
+                   }, .progress = TRUE) 
 
 # Pick items from this nested list to a list
 l <- map_depth(.x = works_list,
@@ -95,4 +98,4 @@ l <- map_depth(.x = works_list,
 # Bind rows of the list to get a data frame
 df <- map_depth(.x = l, .depth = 0, .f = bind_rows)
 
-dfcleaned <- clean(dfbind) 
+dfcleaned <- clean(df) 
